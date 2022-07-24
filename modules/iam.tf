@@ -37,6 +37,13 @@ data "aws_iam_policy_document" "run_task" {
     resources = [
       "arn:aws:ecs:${local.aws_region}:${local.account_id}:task-definition/${var.task_definition_family}:*"
     ]
+    condition = {
+      test     = "ArnEquals"
+      variable = "ecs:cluster"
+      values = [
+        "arn:aws:ecs:${local.aws_region}:${local.account_id}:cluster/${var.target_cluster_name}"
+      ]
+    }
   }
 
   statement {
@@ -50,6 +57,13 @@ data "aws_iam_policy_document" "run_task" {
     resources = [
       "*"
     ]
+    condition = {
+      test     = "ArnEquals"
+      variable = "ecs:cluster"
+      values = [
+        "arn:aws:ecs:${local.aws_region}:${local.account_id}:cluster/${var.target_cluster_name}"
+      ]
+    }
   }
 
   statement {
