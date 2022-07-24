@@ -1,3 +1,3 @@
-variable "name" {}
+variable "function_name" {}
 variable "target_cluster_name" { default = "*" }
 variable "task_definition_family" {}

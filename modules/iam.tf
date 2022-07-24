@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "run_task_assume" {
 }
 
 resource "aws_iam_role" "run_task" {
-  name               = var.name
+  name               = var.function_name
   assume_role_policy = data.aws_iam_policy_document.run_task_assume.json
 }
 
@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "run_task" {
 }
 
 resource "aws_iam_policy" "run_task" {
-  name   = var.name
+  name   = var.function_name
   policy = data.aws_iam_policy_document.run_task.json
 }
 

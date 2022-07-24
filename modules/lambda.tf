@@ -5,7 +5,7 @@ data "archive_file" "run_task" {
 }
 
 resource "aws_lambda_function" "run_task" {
-  function_name = var.name
+  function_name = var.function_name
   handler       = "handler.lambda_handler"
   role          = aws_iam_role.run_task.arn
   runtime       = "python3.8"
