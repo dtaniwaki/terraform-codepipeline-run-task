@@ -1,6 +1,6 @@
 data "archive_file" "run_task" {
   type        = "zip"
-  source_file  = "${path.module}/function/src/handler.py"
+  source_file = "${path.module}/function/src/handler.py"
   output_path = "${path.module}/dist/run_task.zip"
 }
 
@@ -9,7 +9,7 @@ resource "aws_lambda_function" "run_task" {
   handler       = "handler.lambda_handler"
   role          = aws_iam_role.run_task.arn
   runtime       = "python3.8"
-  timeout = 900
+  timeout       = 900
 
   filename         = data.archive_file.run_task.output_path
   source_code_hash = data.archive_file.run_task.output_base64sha256
