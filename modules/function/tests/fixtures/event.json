@@ -1,0 +1,34 @@
+{
+  "CodePipeline.job": {
+    "data": {
+      "artifactCredentials": {
+        "secretAccessKey": "key",
+        "sessionToken": "token",
+        "accessKeyId": "id"
+      },
+      "actionConfiguration": {
+        "configuration": {
+            "FunctionName": "run-task",
+            "UserParameters": "{\"cluster\":\"app-cluster\",\"containerName\":\"app-db-migration\",\"taskDefinitionFamily\":\"app-db-migration\",\"timeout\":10}"
+        }
+      },
+      "inputArtifacts": [
+        {
+            "name": "SourceArtifact",
+            "revision": "sha256:00000000",
+            "location": {
+                "type": "S3",
+                "s3Location": {
+                    "bucketName": "deploy",
+                    "objectKey": "SourceArti/000000"
+                }
+            }
+        }
+      ],
+      "outputArtifacts": [
+      ]
+    },
+    "id": "abc",
+    "accountId": "000000000000"
+  }
+}

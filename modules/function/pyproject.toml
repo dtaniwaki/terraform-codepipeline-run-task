@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "codepipeline-run-task"
+version = "0.0.1"
+description = ""
+authors = ["Daisuke Taniwaki <daisuketaniwaki@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+boto3 = "^1.24.26"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pysen = {version = "^0.10.2", extras = ["lint"]}
+moto = "^3.1.16"
+boto3-stubs = {version = "^1.24.35", extras = ["s3", "ecs", "ec2", "codepipeline"]}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

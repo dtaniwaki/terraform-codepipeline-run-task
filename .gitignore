@@ -1,0 +1,8 @@
+# Terraform configuration
+hashicorp/
+.terraform/
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+*.tfstate
+*.tfvars
+*.tfstate.backup
