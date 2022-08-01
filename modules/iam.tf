@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "run_task" {
       "ecs:RunTask",
     ]
     resources = [
-      "arn:aws:ecs:${local.aws_region}:${local.account_id}:task-definition/${var.task_definition_family}:*"
+      "arn:aws:ecs:${local.aws_region}:${local.account_id}:task-definition/${var.task_definition_family}"
     ]
     condition {
       test     = "ArnEquals"
