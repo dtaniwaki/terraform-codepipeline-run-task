@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "run_task" {
       test     = "ArnEquals"
       variable = "ecs:cluster"
       values = [
-        "arn:aws:ecs:${local.aws_region}:cluster:cluster/${var.target_cluster_name}"
+        "arn:aws:ecs:${local.aws_region}:${local.account_id}:cluster/${var.target_cluster_name}"
       ]
     }
   }
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "run_task" {
       test     = "ArnEquals"
       variable = "ecs:cluster"
       values = [
-        "arn:aws:ecs:${local.aws_region}:cluster:cluster/${var.target_cluster_name}"
+        "arn:aws:ecs:${local.aws_region}:${local.account_id}:cluster/${var.target_cluster_name}"
       ]
     }
   }
