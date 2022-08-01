@@ -98,11 +98,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             if cd["name"] == container_name:
                 cd["image"] = file_json["ImageURI"]
                 break
-        tags = describe_task_definition_response.get("tags", None)
+        tags = describe_task_definition_response.get("tags", [])
 
         register_task_definition_response = ecs_client.register_task_definition(
             family=task_definition_family,
-            tags=tags,
+            **({"tags": tags} if len(tags) > 0 else {}),
             **{k: v for k, v in task_definition.items() if k in TARGET_KEYS and v is not None},  # type: ignore
         )
 
