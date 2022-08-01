@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "run_task" {
     resources = [
       "arn:aws:ecs:${local.aws_region}:${local.account_id}:task-definition/${var.task_definition_family}:*"
     ]
-    condition = {
+    condition {
       test     = "ArnEquals"
       variable = "ecs:cluster"
       values = [
@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "run_task" {
     resources = [
       "*"
     ]
-    condition = {
+    condition {
       test     = "ArnEquals"
       variable = "ecs:cluster"
       values = [
