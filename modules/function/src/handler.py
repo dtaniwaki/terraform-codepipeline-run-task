@@ -68,18 +68,21 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     logger.info("outputArtifacts: %s" % json.dumps(job_data["outputArtifacts"]))
 
     try:
+        artifacts = job_data["inputArtifacts"]
+        if len(artifacts) == 0:
+            raise RuntimeError("inputArtifacts is required")
+
         params = get_user_params(job_data)
         cluster_name = params["cluster"]
         task_definition_family = params["taskDefinitionFamily"]
         container_name = params["containerName"]
         network_configuration = params.get("networkConfiguration", {})
         overrides = params.get("overrides", {})
-        artifact = params.get("artifact", "SourceArtifact")
+        artifact = params.get("artifact", artifacts[0]["name"])
         file_name = params.get("file", "imageDetail.json")
         timeout_sec = int(params.get("timeout", "300"))
         launch_type = params.get("launchType", "FARGATE")
 
-        artifacts = job_data["inputArtifacts"]
         s3_client = get_s3_client(job_data, region_name)
         artifact_data = find_artifact(artifacts, artifact)
         file_json = json.loads(get_file_content(s3_client, artifact_data, file_name))
