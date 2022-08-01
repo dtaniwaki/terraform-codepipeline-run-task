@@ -35,13 +35,13 @@ data "aws_iam_policy_document" "run_task" {
       "ecs:RunTask",
     ]
     resources = [
-      "arn:aws:ecs:${local.aws_region}:${local.account_id}:task-definition/${var.task_definition_family}"
+      "arn:aws:ecs:${local.aws_region}:${local.account_id}:task-definition/${var.task_definition_family}:*"
     ]
     condition {
       test     = "ArnEquals"
       variable = "ecs:cluster"
       values = [
-        "arn:aws:ecs:${local.aws_region}:${local.account_id}:cluster/${var.target_cluster_name}"
+        "arn:aws:ecs:${local.aws_region}:cluster:cluster/${var.target_cluster_name}"
       ]
     }
   }
@@ -49,19 +49,28 @@ data "aws_iam_policy_document" "run_task" {
   statement {
     effect = "Allow"
     actions = [
-      "ecs:StopTask",
-      "ecs:DescribeTasks",
       "ecs:DescribeTaskDefinition",
       "ecs:RegisterTaskDefinition"
     ]
     resources = [
       "*"
     ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "ecs:StopTask",
+      "ecs:DescribeTasks",
+    ]
+    resources = [
+      "arn:aws:ecs:${local.aws_region}:${local.account_id}:task/*"
+    ]
     condition {
       test     = "ArnEquals"
       variable = "ecs:cluster"
       values = [
-        "arn:aws:ecs:${local.aws_region}:${local.account_id}:cluster/${var.target_cluster_name}"
+        "arn:aws:ecs:${local.aws_region}:cluster:cluster/${var.target_cluster_name}"
       ]
     }
   }
