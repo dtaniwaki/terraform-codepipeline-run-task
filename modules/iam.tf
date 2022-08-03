@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "run_task" {
       "logs:*"
     ]
     resources = [
-      "arn:aws:logs:${local.aws_region}:${local.account_id}:log-group:${var.function_name}:*"
+      "arn:aws:logs:${local.aws_region}:${local.account_id}:log-group:${aws_cloudwatch_log_group.run_task.name}:*"
     ]
   }
 
